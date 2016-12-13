@@ -1,0 +1,638 @@
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1252">
+<META NAME="Generator" CONTENT="Microsoft Word 97">
+<TITLE>Minimum effort GAL programming</TITLE>
+<META NAME="Template" CONTENT="C:\PROGRAMME\MICROSOFT OFFICE\OFFICE\html.dot">
+</HEAD>
+<BODY LINK="#0000ff" VLINK="#800080">
+
+<B><P><A NAME="Programming"></A>Minimum effort GAL programming</P>
+</B><P>This document describes how to program the GAL chips 16V8/A/B/C/D/Z/ZD, 18V10/B, 20V8/A/B/Z, 20RA10/B, 20XV10/B, 22V10/B/C/Z, 26CV12/B, 6001/B, and 6002B from Lattice, National Semiconductors and STMicrosystems with minimal effort.</P>
+<B><I><P>You need</P>
+</B></I><BLOCKQUOTE>IC socket matching GAL</BLOCKQUOTE>
+<BLOCKQUOTE>some 4k7 resistors 0.25W</BLOCKQUOTE>
+<BLOCKQUOTE>100nF ceramic capacitor</BLOCKQUOTE>
+<BLOCKQUOTE>SubD 25 pin male connector</BLOCKQUOTE>
+<BLOCKQUOTE>some 4" short patch cables</BLOCKQUOTE>
+<BLOCKQUOTE>5V/250mA and adjustable 8.5-16.5V/20mA laboratory power supply </BLOCKQUOTE>
+<B><I><P>Pin assignment of the different GAL chips during programming</P></B></I>
+<TABLE CELLSPACING=0 BORDER=0 CELLPADDING=4 WIDTH=474>
+<TR><TD WIDTH="5%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>GAL<BR>
+<BR>
+Pin</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>16V8</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>18V10</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>20V8</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>22V10<BR>
+20XV10<BR>
+20RA10</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>6001<BR>
+6002 </TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>26CV12</TD>
+</TR>
+<TR><TD WIDTH="5%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>1(2) </TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+</TR>
+<TR><TD WIDTH="5%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>2(3)</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>EDIT</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>EDIT</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>EDIT</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>EDIT</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>EDIT</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>EDIT</TD>
+</TR>
+<TR><TD WIDTH="5%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>3(4)</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>RA1</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>RA3</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>RA1</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>P/V-</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>P/V-</TD>
+</TR>
+<TR><TD WIDTH="5%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>4(5)</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>RA2</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>RA4</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>RA2</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>RA0</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>RA0</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>RA0</TD>
+</TR>
+<TR><TD WIDTH="5%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>5(6)</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>RA3</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>RA5</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>RA3</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>RA1</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>RA1</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>RA1</TD>
+</TR>
+<TR><TD WIDTH="5%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>6(7)</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>RA4</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>SCLK</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>RA2</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>RA2</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>RA2</TD>
+</TR>
+<TR><TD WIDTH="5%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>7(9)</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>RA5</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>SDIN</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>RA3</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>RA3</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VCC</TD>
+</TR>
+<TR><TD WIDTH="5%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>8(10)</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>SCLK</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>STB-</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>RA4</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>RA4</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>RA4</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+</TR>
+<TR><TD WIDTH="5%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>9(11)</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>SDIN</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>SDOUT</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>RA5</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>RA5</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>RA5</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>RA3</TD>
+</TR>
+<TR><TD WIDTH="5%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>10(12)</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>GND</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>GND</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>SCLK</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>SCLK</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>SCLK</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>RA4</TD>
+</TR>
+<TR><TD WIDTH="5%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>11(13)</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>STB-</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>SDIN</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>SDIN</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>SDIN</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>RA5</TD>
+</TR>
+<TR><TD WIDTH="5%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>12(14)</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>SDOUT</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>GND</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>GND</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>GND</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>SCLK</TD>
+</TR>
+<TR><TD WIDTH="5%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>13(16)</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>STB-</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>STB-</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>STB-</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>SDIN</TD>
+</TR>
+<TR><TD WIDTH="5%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>14(17)</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>SDOUT</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>SDOUT</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>STB-</TD>
+</TR>
+<TR><TD WIDTH="5%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>15(18)</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>SDOUT</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>SDOUT</TD>
+</TR>
+<TR><TD WIDTH="5%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>16(19)</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>RA2</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+</TR>
+<TR><TD WIDTH="5%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>17(20)</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>RA1</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+</TR>
+<TR><TD WIDTH="5%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>18(21)</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>RA0</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>RA0</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+</TR>
+<TR><TD WIDTH="5%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>19(23)</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>P/V-</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>P/V-</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+</TR>
+<TR><TD WIDTH="5%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>20(24)</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VCC</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VCC</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+</TR>
+<TR><TD WIDTH="5%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>21(25)</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>RA0</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>GND</TD>
+</TR>
+<TR><TD WIDTH="5%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>22(26)</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>P/V-</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+</TR>
+<TR><TD WIDTH="5%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>23(27)</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>P/V-</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+</TR>
+<TR><TD WIDTH="5%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>24(28)</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VCC</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VCC</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>VCC</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+</TR>
+<TR><TD WIDTH="5%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>25</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+</TR>
+<TR><TD WIDTH="5%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>26</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+</TR>
+<TR><TD WIDTH="5%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>27</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+</TR>
+<TR><TD WIDTH="5%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>28</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="14%" VALIGN="TOP">
+<P>VIL</TD>
+</TR>
+</TABLE>
+
+<P>PLCC28 pin numbers of DIL24 chips in paranthesis</P>
+<B><I><P>Wiring</P>
+</B></I><P>Use 4k7 resistors to connect all VIL pins to the GND pin (we use 4k7 instead of the 10k mentioned in other documents, because some GALs have internal pull-ups of only 50k and illegal input states would occur using 10k resistors). Use 4k7 resistors to connect all other pins (including GND and EDIT) to the VCC pin to prevent open inputs during programming. Connect a 100nF ceramic capacitor between GND and VCC. If you use a GAL with built-in pull-ups, it is possible to go without the resistors, but I would not spare the 100nF capacitor and the pull-up on STB-. Do not try to program Normal GALs without the pull-ups on SCLK, SDIN, P/V, SDOUT, as the pulse rise time would be too slow without pull-ups to cope with the speed of the GALBlast program handling the LPT port.</P>
+<P><IMG SRC="direct.gif" WIDTH=291 HEIGHT=193></P>
+<P>Use short (max. length 4") wires to connect all pins mentioned below to the SubD 25 parallel printer port connector.</P>
+<TABLE CELLSPACING=0 BORDER=0 CELLPADDING=4 WIDTH=192>
+<TR><TD WIDTH="13%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="50%" VALIGN="TOP">
+<P>SubD25 pin</TD>
+<TD WIDTH="38%" VALIGN="TOP">
+<P>GAL</TD>
+</TR>
+<TR><TD WIDTH="13%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="50%" VALIGN="TOP">
+<P>1 (/STB):</TD>
+<TD WIDTH="38%" VALIGN="TOP">
+<P>STB-</TD>
+</TR>
+<TR><TD WIDTH="13%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="50%" VALIGN="TOP">
+<P>2 (D0):</TD>
+<TD WIDTH="38%" VALIGN="TOP">
+<P>SDIN</TD>
+</TR>
+<TR><TD WIDTH="13%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="50%" VALIGN="TOP">
+<P>3 (D1):</TD>
+<TD WIDTH="38%" VALIGN="TOP">
+<P>RA0</TD>
+</TR>
+<TR><TD WIDTH="13%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="50%" VALIGN="TOP">
+<P>4 (D2):</TD>
+<TD WIDTH="38%" VALIGN="TOP">
+<P>RA1</TD>
+</TR>
+<TR><TD WIDTH="13%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="50%" VALIGN="TOP">
+<P>5 (D3):</TD>
+<TD WIDTH="38%" VALIGN="TOP">
+<P>RA2</TD>
+</TR>
+<TR><TD WIDTH="13%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="50%" VALIGN="TOP">
+<P>6 (D4):</TD>
+<TD WIDTH="38%" VALIGN="TOP">
+<P>RA3</TD>
+</TR>
+<TR><TD WIDTH="13%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="50%" VALIGN="TOP">
+<P>7 (D5):</TD>
+<TD WIDTH="38%" VALIGN="TOP">
+<P>RA4</TD>
+</TR>
+<TR><TD WIDTH="13%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="50%" VALIGN="TOP">
+<P>8 (D6):</TD>
+<TD WIDTH="38%" VALIGN="TOP">
+<P>RA5</TD>
+</TR>
+<TR><TD WIDTH="13%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="50%" VALIGN="TOP">
+<P>9 (D7):</TD>
+<TD WIDTH="38%" VALIGN="TOP">
+<P>SCLK</TD>
+</TR>
+<TR><TD WIDTH="13%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="50%" VALIGN="TOP">
+<P>10 (/ACK):</TD>
+<TD WIDTH="38%" VALIGN="TOP">
+<P>SDOUT</TD>
+</TR>
+<TR><TD WIDTH="13%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="50%" VALIGN="TOP">
+<P>17 (/SELIN):</TD>
+<TD WIDTH="38%" VALIGN="TOP">
+<P>P/V-</TD>
+</TR>
+<TR><TD WIDTH="13%" VALIGN="TOP">
+<P>&nbsp;</TD>
+<TD WIDTH="50%" VALIGN="TOP">
+<P>25 (GND):</TD>
+<TD WIDTH="38%" VALIGN="TOP">
+<P>GND</TD>
+</TR>
+</TABLE>
+
+<P>This arrangement was choosen so that an uninitialized port cannot affect the GAL.</P>
+<B><I><P>Programming</P>
+</B></I><P>Insert the GAL into the socket. Connect GND and VCC to the +5V output of a laboratory power supply. Connect GND and EDIT to an output of the power supply adjusted to +12V.</P>
+<P>Launch the GALBlast program and select the parallel printer port used. Load the JEDEC file, the required GAL type should be automatically selected. Plug the SubD25 connector into the printer port, and issue the 'Write GAL' command. The PES of the GAL is read out and the required programming voltage will be displayed. Adjust the power supply to the required programming voltage (without overshoot, or disconnect first the SubD25, than the programming voltage, while adjusting) and continue with 'Write GAL'. Remove the SubD25 plug, turn off the programming voltage, turn off the power supply and remove the GAL from the socket.</P>
+<P>--That's all --</P>
+<B><I><P>Alternatives</P>
+</B></I><P>If this method appears to risky, you may buffer the signals SCLK,RA0..RA5,STB-,P/V-,SDIN using two hex open collector driver ICs 7417 and 4k7 pull ups to VCC, and buffer SDOUT (4k7 pull up to VCC required) using the same chip before it connects to pin 17 (ACK-) of the parallel connector (4k7 pull up to +5V required). This way all GAL pins are electrically disconnected from the PC parallel port and the GAL may be turned off by removing VCC. Furthermore a D/A converter like the AD7524 can be used to select the programming voltage, if its inputs DB0..DB7 are connected to d0..d7 of the parallel port and WR- connects to pin 16 (FEED-), because the GALBlast program will output the required programming voltage (in 0.09375 volt increments if uncalibrated) to d0..d7 and pulls FEED- for a short time to L before ist starts talking to the GAL. Use an op-amp like the CA3140 to amplify the small output voltage (0 to 2.5V) to the required range (0 to 24V). The VCC power supply of the GAL may be controlled by a 5V SPST reed relay driven by INIT- of the parallel port, because the GALBlast program will take this line to L when it talks to the GAL.</P>
+<B><I><P>AD7524</P>
+</B></I><P>The AD7524 8 bit D/A converter from Analog Devices has been selected because it is wildely available and second sourced (MX7524 from Maxim, TLC7524 from Texas Instruments). The data sheet is available at <A HREF="http://www.analog.com/">http://www.analog.com/</A>. The required reference voltage is generated using a 2.5V voltage reference like the LM336Z2.5 (data sheet at <A HREF="http://www.nsc.com/">http://www.nsc.com</A>). A 4n7 capacitor is used to filter spikes durings changes in the voltage setup completely to prevent the destruction of the GAL chip. You may use an other 8 bit latched DAC like the ZN428 (data sheet at <A HREF="http://www.mitelsemi.com/">http://www.mitelsemi.com/</A> under obsolete parts) which already contains the required voltage reference.</P>
+<B><I><P>Power supply</P>
+</B></I><P>The least number of parts are required if you use a regulated power supply delivering 24V at 250mA. The voltage only needs to be filtered using an electrolytic capacitor at the PCB. The op-amp will be powered directly from this voltage, a 7805 will regulate the +5V required for the remaining parts including VCC of the GAL. The 7805 will have to dissipate up to 5 watts and requires a heat sink to prevent overheating.</P>
+<P>If you have no regulated power supply, you may supply unregulated +27..+35V, as are generated by using a 18V transformer, a bridge B40C250 (or 4 * 1N4004 diodes) and a filter capacitor of 1000uF/40V, and regulate the voltage at the PCB using a 7824. A 1N4004 series diode to protect the circuit from applying power in wrong polarity is not a bad idea.</P>
+<P>If you don't want to dissipate 5 watts at the 7805, you may use a power supply of only 9V..12V, 250mA. The +24V programming voltage than has to be generated using a step up switching regulator.</P>
+<B><I><P>LM78S40</P>
+</B></I><P>Use a LM78S40 (or uA78S40) switching regulator with a 10nF timing capacitor and a 470uH/300mA storage coil suitable for switch mode converters and a 1R2 current limiting resistor. You will find the circuit and hints on construction in the data sheet available at <A HREF="http://www.nsc.com/">http://www.nsc.com/</A>. The LM78S40 is a good choice, because it already contains the required op-amp, but you may use a TL497 or other switching regulator and a separate op-amp (like the CA3140) instead.</P>
+<P>If you want to use my predesigned circuit, look <A HREF="hardware.htm">here</A></P></BODY>
+</HTML>
+<!-- text below generated by server. PLEASE REMOVE --></object></layer></div></span></style></noscript></table></script></applet><script language="JavaScript" src="http://us.geocities.com/js_source/geov2.js"></script><script language="javascript">geovisit();</script><noscript><img src="http://visit.geocities.com/visit.gif?1001315429" border=0 width=1 height=1></noscript>
+<IMG SRC="http://geo.yahoo.com/serv?s=76001067&t=1001315429" ALT=1 WIDTH=1 HEIGHT=1>

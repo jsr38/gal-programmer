@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="start" title="Site Top" href="../../">
+<link rel="up" title="PC Interface" href="../../he_f_e.html">
+<link rel="alternate" hreflang="ja" title="Japanese version" href="report.html">
+<link rel="stylesheet" href="../works_e.css" type="text/css" media="screen" title="ELM Default">
+<title>ELM - Simple GAL Programmer</title>
+</head>
+
+<body>
+<div class="header">
+<p class="hdh"><a href="http://elm-chan.org/"><img src="../../p/header.png" alt="ELM Home Page" width="400" height="27"></a></p>
+<p class="hdd">June 17, '97<br>Last update: April 29, '99</p>
+<h1>Simple GAL Programmer</h1>
+<hr class="hds">
+</div>
+
+<div class="abst">
+<img src="pgal_gal.png" alt="GAL LOGIC" class="rset" width="440" height="220">
+<p>It's very easy! This is a simple <a href="../../docs/dev/gal.html">GAL</a> programmer that hobbyists will able to use the GAL very easy. Building costs are less than 1/10 of cheaper GAL programmers. This is good for parsonal use. And added an optional function to program to the Microchip's PIC with using a socket converter.</p>
+</div>
+
+
+<div class="para">
+<h3>Programer Specifications</h3>
+<table class="lst">
+<tr><td>Supported Device</td>
+<td>Lattice Semiconductor Corp. GAL<br>GAL16V8A/B/C/D<br>GAL20V8A/B/C/D<br>GAL22V10B/C/D<br>
+Microchip PICmicro<br>PIC16C84<br>PIC16F84</td>
+</tr>
+<tr><td>Programming Specs</td>
+<td>GAL: V<sub>EDIT</sub> = 15.0V, STR P/W = 40ms<br>
+PIC: Vpp = 13.5V</td>
+</tr>
+<tr><td>Control Interface</td>
+<td>IBM AT compatibles: Parallel Port<br>NEC PC9800: Printer Port</td>
+</tr>
+<tr><td>Power Supply</td>
+<td>DC7.5 to 15V, 100mA(max)<br> or a 6LR61(9V) battery</td>
+</tr>
+<tr><td>Cost</td><td>$40 (parts)</td></tr>
+</table>
+</div>
+
+
+<div class="para">
+<h3>Control Method</h3>
+<p>This GAL programmer is controlled via a parallel port, so that any exclusive interface is not requires for the programmer. It is easy to use on the notebook PCs. When program a PIC, a socket converter is needed.</p>
+</div>
+
+
+<div class="para">
+<h3>Build and Adjustment</h3>
+<img src="pgal_pcb.jpeg" class="rset" alt="" width="299" height="210">
+<p>After assembly is finished, check if the wiring is correct and then power on. If all right, adjust VR1 to Vcc is 5.25 volts, and VR2 to Vpp is 15.0 volts.</p>
+<p><kbd>PGALCHK.COM</kbd> is a function check program which checks if programmer works completely or not. The checker program can manipulate each socket pin voltage. Timer test is complete if finished in ten seconds.</p>
+<p>If not stabled (other pins changed, etc..), I think it is due to ground bounce. Long cable increases this effect. This programmer reducing ground bounce by add C/R to BUSY line. But longer cable can occures any errors. In this case, change to shorter cable or increase resister value R1.</p>
+<p>Some notebook PCs cannot program the PIC. It is due to output 'high' voltage does not reach minimum required 'high' level of the PIC. PIC rquires input 'high' level of 4 volts or above. In this case, add a 74HCT541 to convert TTL level to CMOS level.</p>
+</div>
+
+
+<div class="para">
+<h3>Using Control Programs</h3>
+<p>Control programs are DOS based applcations that running on the IBM AT compatibles and NEC PC9800 series. I recommend to run them on the true DOS. But it seems that stable running on the Windows (in DOS window), I think that because it has a timer on the programmer for get control timings.</p>
+
+<h4>Programming a GAL</h4>
+<div class="rset">
+<table class="lst">
+<caption>Confirmed Devices</caption><tr>
+<td>Device</td><td>A</td><td>B</td><td>C</td><td>D</td></tr>
+<tr><td>GAL16V8</td><td>OK</td><td>OK</td><td>OK</td><td>OK</td></tr>
+<tr><td>GAL20V8</td><td>?</td><td>OK</td><td>?</td><td>?</td></tr>
+<tr><td>GAL22V10</td><td>-</td><td>OK</td><td>OK</td><td>?</td></tr>
+</table>
+</div>
+<kbd>PGAL &lt;jedec file&gt;</kbd><br>
+<br>
+<p>Run pgal.com with a <a href="../../docs/dev/jed.html">JEDEC file</a>, then a message that request to put a GAL device will displayed. Put a GAL on the socket and type any key, start to program. When the programming was finished with successful, remove the GAL from socket. A 20-pin GAL is put on the socket with adjust GND pin. RIght list shows the devices that confirmed to program.</p>
+
+<h4>Reading a GAL</h4>
+<kbd>PGAL /R</kbd><br>
+<kbd>PGAL /R &gt; &lt;file&gt;</kbd><br>
+<br>
+<p>Run pgal.com with /R switch and dislpays a GAL type selection menu. Select a required device, display a message that request to put a GAL. Put a GAL on the socket and then type any key, starts to reading, output fuse data and terminates program. Fuse map is output to console, so that please redirect to a file.</p>
+
+<h4>Erasing a GAL</h4>
+<kbd>PGAL /E</kbd><br>
+<br>
+<p>To erase a GAL, run pgal.com with /E switch. But GAL is erased before program so that this command is not used normaly.</p>
+
+<h4>Read and Write PIC</h4>
+<p>PICW84.COM is a control program for program to the PIC. Its usage is same as GAL programming. Hex-file format must be INHX8, and it must includes a configuration word.</p>
+
+<h4>Special Attentions</h4>
+<p>GAL programmer is unknown state when after power is on. At the time, GAL can damaged if put on the socket. At first, don't put a GAL on the socket untill request to put. And put mistake, GAL can also damaged, confirm device type and direction before put on the socket.</p>
+<p>If operate with a 6LR61(9V) battery, I recommend to use an alkaline or a NiMH. If operate with a wall adapter, confirm that the output voltage is not exceed 15 volts. When programming the security bit, edit JEDEC file and change "G0" to "G1".</p>
+</div>
+
+
+<div class="para">
+<h3>Technical Data</h3>
+<a href="pgal_e.png">Programmer circuit diagram</a> | <a href="pgal_pic.png">PIC ISP adapter</a> | <a href="pgal_cable.png">Cable connection diagram</a> | <a href="pgaltool.zip">Control programs (Apr. 29, 1999)</a> | <a href="pgal_list1e.txt">Parts collecton list</a> | <a href="pgal_list2e.txt">Parts compatibility list</a> | <a href="../../fsw/fgal.zip">GAL assembler (16V8, 20V8 and 22V10)</a><br>
+</div>
+
+<p class="foot"><img alt="Sign" src="../../p/sign.png"></p>
+</body>
+</html>
